@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FootballFlix</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.8.0/videojs-contrib-ads.min.js"></script>
     <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="280153"></script>
     <script async src="https://bid.onclckstr.com/vast?spot_id=6053070"></script>
     <style>
@@ -214,7 +216,8 @@
         <div class="video-grid">
             <div class="video-card">
                 <div class="thumbnail-container">
-                    <video id="video1" controls>
+                    <video id="video1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
+                           data-setup='{"fluid": true}'>
                         <source src="Barca.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -232,7 +235,8 @@
 
             <div class="video-card">
                 <div class="thumbnail-container">
-                    <video id="video2" controls>
+                    <video id="video2" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
+                           data-setup='{"fluid": true}'>
                         <source src="Yam.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -250,7 +254,8 @@
 
             <div class="video-card">
                 <div class="thumbnail-container">
-                    <video id="video3" controls>
+                    <video id="video3" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
+                           data-setup='{"fluid": true}'>
                         <source src="Goldenboy.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -271,7 +276,39 @@
     </main>
 
     <script>
-        lucide.createIcons();
+        // Initialize Video.js
+        const player1 = videojs('video1');
+        const player2 = videojs('video2');
+        const player3 = videojs('video3');
+
+        // Setup ads
+        player1.ads();
+        player2.ads();
+        player3.ads();
+
+        player1.on('readyforpreroll', () => {
+            player1.ads.startLinearAdMode();
+            player1.src({ src: 'https://bid.onclckstr.com/vast?spot_id=6053070', type: 'video/mp4' }); // Update with the ad source
+            player1.one('adended', () => {
+                player1.ads.endLinearAdMode();
+            });
+        });
+
+        player2.on('readyforpreroll', () => {
+            player2.ads.startLinearAdMode();
+            player2.src({ src: 'https://bid.onclckstr.com/vast?spot_id=6053070', type: 'video/mp4' }); // Update with the ad source
+            player2.one('adended', () => {
+                player2.ads.endLinearAdMode();
+            });
+        });
+
+        player3.on('readyforpreroll', () => {
+            player3.ads.startLinearAdMode();
+            player3.src({ src: 'https://bid.onclckstr.com/vast?spot_id=6053070', type: 'video/mp4' }); // Update with the ad source
+            player3.one('adended', () => {
+                player3.ads.endLinearAdMode();
+            });
+        });
     </script>
 </body>
 </html>
